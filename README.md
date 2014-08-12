@@ -1,4 +1,3 @@
-jon-bon-robot
-=============
+###Jon Bon Robot
 
-Instant rock
+Instant Rock

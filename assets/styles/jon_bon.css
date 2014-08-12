@@ -1,0 +1,190 @@
+@def background #1f0f34;
+@def dropShadow #4d4d4d;
+@def loadingBackground #c8effe;
+@def magenta #92105b;
+@def darkPink #4b082e;
+@def pink #ae2175;
+
+html {
+    height: 100%;
+	width: 100%;
+}
+
+body {
+	background: background;
+	font-size: 100%;
+	color: #fff;
+    font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+.gridWrapper {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	z-index: -999;
+}
+
+.grid {
+	width: 960px;
+	margin: 0 auto;
+	background: transparent url(images/b.png) 0 0 repeat-y;
+	height: 100%;
+	position: relative;
+}
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  text-align: center;
+}
+
+.contentWrapper {
+  display: block;
+  width: 940px;
+  margin: 0 auto;
+}
+
+.form {
+  width: 940px;
+  height: 650px;
+  background: transparent url(../images/robot.png) 50px 50px no-repeat;
+}
+
+.form > fieldset,
+.lyricsLabel,
+.lyricsTextBox,
+.submitButton {
+  float: left;
+}
+
+.form > fieldset {
+  width: 450px;
+  margin: 380px 0 0 100px;
+  border: 0;
+}
+
+.lyricsLabel {
+  color: #fff;
+  width: 400px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1.2em;
+}
+
+.lyricsTextBox {
+  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 1px #000;
+  margin: 0 0 20px 0;
+  padding: 5px;
+  width: 400px;
+  height: 30px;
+  font-size: 1em;
+}
+
+.submitButton {
+  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5) inset, 0 1px 1px #000;
+  border: 1px solid darkPink;
+  background: magenta;
+  background-image: -moz-linear-gradient(magenta, darkPink);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, darkPink), color-stop(1, #92105b));
+  -moz-box-shadow: 0 0 1px pink inset;
+  -webkit-box-shadow: 0 0 1px pink inset;
+  box-shadow: 0 0 1px pink inset;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.2em;
+  letter-spacing: 1px;
+  text-shadow: 0 1px #000;
+  text-transform: uppercase;
+  width: 220px;
+  height: 40px;
+  padding: 7px 0 7px 0;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background: #c4177b;
+  background-image: -moz-linear-gradient(#c4177b, darkPink);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, darkPink), color-stop(1, #c4177b));
+  -moz-box-shadow: 0 0 1px pink inset;
+  -webkit-box-shadow: 0 0 1px pink inset;
+  box-shadow: 0 0 1px pink inset;
+}
+
+.submitButton:active {
+  border: 0;
+  background: #92105b;
+  background-image: -moz-linear-gradient(magenta, darkPink);
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, darkPink), color-stop(1, #92105b));
+  -moz-box-shadow: 0 1px 5px #000 inset;
+  -webkit-box-shadow: 0 1px 5px #000 inset;
+  box-shadow: 0 1px 5px #000 inset;
+  position: relative;
+  top: 2px;
+}
+
+.songSheet {
+	position: relative;
+	margin: 1em auto;
+	background-color: white;
+	border: 1px solid black;
+	overflow: auto;
+}
+
+.loadingPopup {
+	position: relative;
+	margin: 0 auto;
+	padding: 0;
+	background-color: background;
+	border: 5px solid magenta;
+	width: 23em;
+	height: 7em;
+	cursor: wait;
+	text-align: center;
+	
+	border-radius: 5px 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	
+	-moz-box-shadow: 0 1px 10px magenta;
+  	-webkit-box-shadow: 0 1px 10px magenta;
+  	box-shadow: 0 1px 10px magenta;
+}
+
+.loadingPopup h2 {
+	font-size: 130%;
+	color: #fff;
+}
+
+.error {
+	margin: 0 auto;
+	padding: 5px;
+	border: 2px solid magenta;
+	font-size: 120%;
+	width: 50%;
+	
+	border-radius: 5px 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
