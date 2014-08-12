@@ -10,8 +10,10 @@ var lyrics = require("../../../twitter-poetry/lib/twitter_poetry"), // TODO: npm
 
 module.exports = {
   verses: function (req, res) {
-    lyrics.gatherVerse({creds: creds}, function (err, verses) {
-      console.log("Time to send");
+    var chatBack = function (message) {
+      sails.sockets.emit(req.socket.id, "chatter", {message: message});
+    };
+    lyrics.gatherVerse({creds: creds, log: chatBack}, function (err, verses) {
       return res.send(verses);
     });
   }
