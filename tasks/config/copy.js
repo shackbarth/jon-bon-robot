@@ -24,6 +24,11 @@ module.exports = function (grunt) {
 				dest: '.tmp/public'
 			}, {
 				expand: true,
+				cwd: './node_modules/tween.js',
+				src: ['index.js'],
+				dest: '.tmp/public/js/dependencies'
+			}, {
+				expand: true,
 				cwd: './node_modules/jquery/dist',
 				src: ['jquery.js'],
 				dest: '.tmp/public/js/dependencies'

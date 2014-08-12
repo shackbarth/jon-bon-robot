@@ -1,8 +1,7 @@
 {
-  "name": "sailsProject",
-  "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "name": "jon-bon-robot",
+  "version": "0.0.1",
+  "description": "Instant Rock",
   "keywords": [],
   "dependencies": {
     "ejs": "~0.8.4",
@@ -27,6 +26,7 @@
     "rc": "~0.5.0",
     "sails": "~0.10.3",
     "sails-disk": "~0.10.0",
+    "tween.js": "~0.14.0",
     "twitter": "~0.2.9"
   },
   "scripts": {
@@ -36,8 +36,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vagrant/sailsProject.git"
+    "url": "git://github.com/shackbarth/jon-bon-robot.git"
   },
-  "author": "vagrant",
-  "license": ""
+  "author": "Steve Hackbarth",
+  "license": "MIT"
 }
