@@ -13,7 +13,7 @@
  * For usage docs see:
  * 		https://github.com/gruntjs/grunt-contrib-copy
  */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 	grunt.config.set('copy', {
 		dev: {
@@ -22,7 +22,13 @@ module.exports = function(grunt) {
 				cwd: './assets',
 				src: ['**/*.!(coffee|less)'],
 				dest: '.tmp/public'
-			}]
+			}, {
+				expand: true,
+				cwd: './node_modules/jquery/dist',
+				src: ['jquery.js'],
+				dest: '.tmp/public/js/dependencies'
+			}
+            ]
 		},
 		build: {
 			files: [{
