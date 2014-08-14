@@ -4,7 +4,7 @@
  * ---------------------------------------------------------------
  *
  * # dev task config
- * Copies all directories and files, exept coffescript and less fiels, from the sails
+ * Copies all directories and files, except coffescript and less files, from the sails
  * assets folder into the .tmp/public directory.
  *
  * # build task config
@@ -22,6 +22,11 @@ module.exports = function (grunt) {
 				cwd: './assets',
 				src: ['**/*.!(coffee|less)'],
 				dest: '.tmp/public'
+			}, {
+				expand: true,
+				cwd: './bower_components/abcjs/bin',
+				src: ['abcjs_basic_latest-min.js'],
+				dest: '.tmp/public/js/dependencies'
 			}, {
 				expand: true,
 				cwd: './node_modules/tween.js',

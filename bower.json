@@ -1,0 +1,21 @@
+{
+  "name": "jon-bon-robot",
+  "version": "0.0.0",
+  "homepage": "https://github.com/shackbarth/jon-bon-robot",
+  "authors": [
+    "Steve Hackbarth <stephenhackbarth@gmail.com>"
+  ],
+  "description": "Instant Rock",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "abcjs": "paulrosen/abcjs"
+  }
+}

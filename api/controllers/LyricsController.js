@@ -6,6 +6,7 @@
  */
 
 var lyrics = require("../../../twitter-poetry/lib/twitter_poetry"), // TODO: npm publish
+  popMusicGenerator = require("../../../pop-music-generator/lib/generator"), // TODO: npm publish
   creds = require("../../../twitter-poetry/api_keys").keys; // TODO: env var
 
 module.exports = {
@@ -14,7 +15,9 @@ module.exports = {
       sails.sockets.emit(req.socket.id, "chatter", {message: message});
     };
     lyrics.gatherVerse({creds: creds, log: chatBack}, function (err, verses) {
-      return res.send(verses);
+      console.log(verses);
+      var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
+      return res.send(abc);
     });
   }
 };

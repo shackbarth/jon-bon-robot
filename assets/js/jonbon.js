@@ -6,12 +6,11 @@ $("#submitButton").click(function () {
   $("#chatBox").html("> I'm about to rock your socks off");
   $("#chatBox").css({display: "block"});
   //animate();
-  io.socket.get("/lyrics/verses", function (results) {
-    console.log("success", JSON.stringify(results));
+  io.socket.get("/lyrics/verses", {inspiration: $("#lyricsTextBox").val()}, function (results) {
     $("#chatBox").css({display: "none"});
     $("#lyricsResult").css({display: "block"});
-    $("#lyricsResult").html(results.join("<br><br>"));
-    console.log("successargs", JSON.stringify(arguments));
+    ABCJS.renderAbc("lyricsResult", results);
+    $("#lyricsResult").css({display: "block"});
   });
 
   var chatLog = ["I'm about to rock your socks off"];
