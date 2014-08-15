@@ -1,3 +1,6 @@
+
+
+
 $("#submitButton").click(function () {
   console.log("Let us now rock and roll");
   $("#lyricsLabel").css({display: "none"});
@@ -6,11 +9,13 @@ $("#submitButton").click(function () {
   $("#chatBox").html("> I'm about to rock your socks off");
   $("#chatBox").css({display: "block"});
   //animate();
-  io.socket.get("/lyrics/verses", {inspiration: $("#lyricsTextBox").val()}, function (results) {
+  io.socket.get("/song/generate", {inspiration: $("#lyricsTextBox").val()}, function (result) {
+    console.log("success", arguments);
     $("#chatBox").css({display: "none"});
-    $("#lyricsResult").css({display: "block"});
-    ABCJS.renderAbc("lyricsResult", results);
-    $("#lyricsResult").css({display: "block"});
+    window.open("/song/render/" + result.id, "_blank");
+    //$("#lyricsResult").css({display: "block"});
+    //ABCJS.renderAbc("lyricsResult", result);
+    //$("#lyricsResult").css({display: "block"});
   });
 
   var chatLog = ["I'm about to rock your socks off"];

@@ -25,7 +25,7 @@ module.exports = function (grunt) {
 			}, {
 				expand: true,
 				cwd: './bower_components/abcjs/bin',
-				src: ['abcjs_basic_latest-min.js'],
+				src: ['abcjs_plugin_latest-min.js'],
 				dest: '.tmp/public/js/dependencies'
 			}, {
 				expand: true,
