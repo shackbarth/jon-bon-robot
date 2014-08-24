@@ -212,3 +212,8 @@ body {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
+
+
+.abctext {
+  height: 0px;
+}
