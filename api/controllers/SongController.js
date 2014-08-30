@@ -101,6 +101,22 @@ module.exports = {
       sails.sockets.emit(req.socket.id, "chatter", {message: message});
     };
     var abc = "abc!";
+    lyrics = {
+      gatherVerse: function (options, callback) {
+        var i = 0;
+        var myInterval = setInterval(function () {
+          if (i === chatter.form.length) {
+            clearInterval(myInterval);
+            return callback(null, stub);
+          }
+          chatter.form[i].split("~").map(function (chat) {
+            chatBack(chat);
+          });
+          i++;
+
+        }, 2000);
+      }
+    };
     lyrics.gatherVerse({creds: creds, log: chatBack}, function (err, verses) {
       console.log(verses);
       var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
