@@ -42,7 +42,7 @@ var chatter = {
     "Imagine for a moment that you're being rocked harder than you've ever been rocked before.~" +
     "That dream is about to become a reality",
 
-
+    "I'm about to rock your socks off"
 
 
   ],
@@ -97,7 +97,7 @@ var chatter = {
 
 module.exports = {
   generate: function (req, res) {
-    var chatBack = function (message) {
+    var log = function (message) {
       sails.sockets.emit(req.socket.id, "chatter", {message: message});
     };
     var abc = "abc!";
@@ -105,19 +105,19 @@ module.exports = {
       gatherVerse: function (options, callback) {
         var i = 0;
         var myInterval = setInterval(function () {
-          if (i === chatter.form.length) {
+          if (i === chatter.twitter.length) {
             clearInterval(myInterval);
             return callback(null, stub);
           }
-          chatter.form[i].split("~").map(function (chat) {
-            chatBack(chat);
+          chatter.twitter[i].split("~").map(function (chat) {
+            log(chat);
           });
           i++;
 
         }, 2000);
       }
     };
-    lyrics.gatherVerse({creds: creds, log: chatBack}, function (err, verses) {
+    lyrics.gatherVerse({creds: creds, log: log}, function (err, verses) {
       console.log(verses);
       var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
       Song.create({title: req.body.inspiration, body: abc}).exec(function (err, created) {
