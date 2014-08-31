@@ -5,7 +5,9 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var lyrics = require("../../../twitter-poetry/lib/twitter_poetry"), // TODO: npm publish
+var _ = require("lodash"),
+  async = require("async"),
+  lyrics = require("../../../twitter-poetry"), // TODO: npm publish
   popMusicGenerator = require("../../../pop-music-generator/lib/generator"), // TODO: npm publish
   creds = require("../../../twitter-poetry/api_keys").keys; // TODO: env var
 
@@ -30,14 +32,29 @@ var stub = [ [ 'I\'m not even sad but I\'m listening',
     'World love to watch that',
     'I thought diggz was DROPPIN that',
     'time is money foo bar he at' ] ];
+/*
 lyrics = {
 
   gatherVerse: function (options, callback) {
     callback(null, stub);
   }
 };
+*/
 
 var chatter = {
+
+  validateTooShort: [
+    "Get some sleep and come back when you've got something to say.",
+
+    "Need more words, buck."
+  ],
+
+  validateTooLong: [
+    "Who do you think you are, Bob Dylan?~Try something shorter",
+
+    "You gotta be kidding me."
+  ],
+
   welcome: [
     "Imagine for a moment that you're being rocked harder than you've ever been rocked before.~" +
     "That dream is about to become a reality",
@@ -90,45 +107,73 @@ var chatter = {
 
 
   ]
+};
 
+var getChat = function (category) {
+  return _.sample(chatter[category]);
+};
 
+var log;
+var logAll = function (message) {
+  message.split("~").map(function (messageLine) {
+    log(messageLine);
+  });
+};
 
-}
+var validate = function (inspiration, done) {
+  var MIN_SYLLABLES = 3;
+  var MAX_SYLLABLES = 10;
+  if (!inspiration) {
+    // probably move this validation to the browser
+    logAll("You need to enter something");
+    return done("invalid");
+  }
+  var syllableCount = lyrics.getSyllableCount(inspiration);
+  if (syllableCount < MIN_SYLLABLES) {
+    logAll(getChat("validateTooShort"));
+    return done("invalid");
+  };
+  if (syllableCount > MAX_SYLLABLES) {
+    logAll(getChat("validateTooLong"));
+    return done("invalid");
+  };
+  log(inspiration);
+  done();
+};
+
 
 module.exports = {
   generate: function (req, res) {
-    var log = function (message) {
+    log = function (message) {
       sails.sockets.emit(req.socket.id, "chatter", {message: message});
     };
-    var abc = "abc!";
-    lyrics = {
-      gatherVerse: function (options, callback) {
-        var i = 0;
-        var myInterval = setInterval(function () {
-          if (i === chatter.twitter.length) {
-            clearInterval(myInterval);
-            return callback(null, stub);
-          }
-          chatter.twitter[i].split("~").map(function (chat) {
-            log(chat);
-          });
-          i++;
 
-        }, 2000);
+    async.waterfall([
+      function (callback) {
+        validate(req.body.inspiration, callback);
+      },
+      function (callback) {
+        lyrics.gatherVerse({creds: creds, log: log}, callback);
+      },
+      function (verses, callback) {
+        var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
+        callback(null, abc);
+      },
+      function (abc, callback) {
+        Song.create({title: req.body.inspiration, body: abc}).exec(callback);
+      },
+      function (created, callback) {
+        res.send({id: created.id});
+        callback();
       }
-    };
-    lyrics.gatherVerse({creds: creds, log: log}, function (err, verses) {
-      console.log(verses);
-      var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
-      Song.create({title: req.body.inspiration, body: abc}).exec(function (err, created) {
-        return res.send({id: created.id});
-      });
+    ], function (err, results) {
+      console.log(arguments);
     });
+
   },
 
   render: function (req, res) {
     Song.findOne({id: req.params.id}).exec(function (err, song) {
-      console.log("song", arguments);
       if (err) {
         return res.redirect("500");
       } else if (!song) {

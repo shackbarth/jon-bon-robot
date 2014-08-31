@@ -23,6 +23,11 @@
     });
 
   });
+
+  $(document).ready(function () {
+    $("#lyricsTextBox").focus();
+  });
+
   /*
   init();
 
