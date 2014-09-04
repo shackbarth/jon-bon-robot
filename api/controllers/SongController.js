@@ -7,6 +7,7 @@
 
 var _ = require("lodash"),
   async = require("async"),
+  rhyme = require('rhyme'),
   lyrics = require("../../../twitter-poetry"), // TODO: npm publish
   popMusicGenerator = require("../../../pop-music-generator/lib/generator"), // TODO: npm publish
   creds = require("../../../twitter-poetry/api_keys").keys; // TODO: env var
@@ -153,7 +154,7 @@ module.exports = {
         validate(req.body.inspiration, callback);
       },
       function (callback) {
-        lyrics.gatherVerse({creds: creds, log: log}, callback);
+        lyrics.gatherVerse({creds: creds, log: log, captureTweet: Tweet.captureTweet}, callback);
       },
       function (verses, callback) {
         var abc = popMusicGenerator.generateMusic(verses, req.body.inspiration);
